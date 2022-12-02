@@ -1,9 +1,11 @@
 .element__icon {
-  right: 30px;
-  bottom: 31px;
+  margin: 0;
+  padding: 0;
   width: 22px;
   height: 19px;
   grid-area: icon;
   align-self: center;
   justify-self: center;
+  border: none;
+  background: url("../../../images/heart.svg") no-repeat center;
 }

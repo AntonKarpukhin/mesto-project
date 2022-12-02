@@ -4,5 +4,15 @@
   top: -40px;
   width: 32px;
   height: 32px;
+  border: none;
+  background: url("../../../images/close-icon.svg") no-repeat center;
   z-index: 2;
+}
+
+
+@media screen and (max-width: 1179px) {
+  .popup__close-icon {
+    right: 0;
+    top: -48px;
+  }
 }

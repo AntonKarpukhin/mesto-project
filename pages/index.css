@@ -8,11 +8,9 @@
 @import url(../blocks/profile/__text/profile__text.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
-@import url(../blocks/profile/__img-pencil/profile__img-pencil.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
-@import url(../blocks/profile/__plus/profile__plus.css);
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__title/element__title.css);
@@ -30,7 +28,8 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__close-icon/popup__close-icon.css);
 @import url(../blocks/popup/__contact-info/popup__contact-info.css);
-@import url(../blocks/opacity-hover/opacity-hover.css);
-@import url(../blocks/opacity-hover/_button-form/opacity-hover_button-form.css);
-@import url(../blocks/opacity-hover/_heart-hover/opacity-hover_heart-hover.css);
 @import url(../blocks/element/__icon/_active/element__icon_active.css);
+@import url(../blocks/opacity/_type/opacity_type_button-form.css);
+@import url(../blocks/opacity/_type/opacity_type_heart-active.css);
+@import url(../blocks/opacity/_type/opacity_type_heart-hover.css);
+@import url(../blocks/opacity/opacity.css);

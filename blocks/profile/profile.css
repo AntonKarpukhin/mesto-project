@@ -11,22 +11,9 @@
   align-items: center;
 }
 
-
-@media screen and (max-width: 320px) {
-  .profile {
-    width: 100%;
-    padding: 42px 19px 0 19px;
-    grid-template-columns: 1fr;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-}
-
 @media screen and (max-width: 1179px) {
   .profile {
-    width: 100%;
-    padding: 42px 19px 0 19px;
+    width: 282px;
     grid-template-columns: 1fr;
     display: flex;
     flex-direction: column;

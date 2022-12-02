@@ -16,6 +16,7 @@
     width: 100%;
     margin: 0;
     margin-top: 26px;
+    padding: 0 19px 0 46px;
     grid-template-columns: 189px 18px;
     grid-template-rows: repeat(2, 1fr);
     grid-template-areas:
