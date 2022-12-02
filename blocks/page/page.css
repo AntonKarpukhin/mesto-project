@@ -3,7 +3,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  width: 1280px;
+  width: 880px;
   margin: 0 auto;
   background-color: black;
   font-family: "Inter", Arial, sans-serif;
@@ -15,8 +15,4 @@
   .page {
     width: 100%;
   }
-}
-
-* {
-  outline: solid 1px red;
 }
