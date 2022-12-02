@@ -1,0 +1,8 @@
+.popup__close-icon {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 32px;
+  height: 32px;
+  z-index: 2;
+}

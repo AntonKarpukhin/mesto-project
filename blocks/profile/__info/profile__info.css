@@ -1,0 +1,28 @@
+.profile__info {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 336px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 18px;
+  row-gap: 16px;
+  align-items: center;
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 1179px) {
+  .profile__info {
+    width: 100%;
+    margin: 0;
+    margin-top: 26px;
+    grid-template-columns: 189px 18px;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+    "name button"
+    "text text";
+    column-gap: 10px;
+    row-gap: 14px;
+    justify-content: center;
+  }
+}

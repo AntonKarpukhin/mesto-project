@@ -1,0 +1,15 @@
+.element {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 282px;
+  height: 361px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: 282px auto;
+  grid-template-areas:
+  "img img"
+  "title icon";
+}

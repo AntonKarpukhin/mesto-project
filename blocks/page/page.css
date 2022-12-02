@@ -1,0 +1,22 @@
+.page {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 1280px;
+  margin: 0 auto;
+  background-color: black;
+  font-family: "Inter", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (max-width: 1279px) {
+  .page {
+    width: 100%;
+  }
+}
+
+* {
+  outline: solid 1px red;
+}

@@ -1,0 +1,8 @@
+.element__img {
+  display: block;
+  width: 282px;
+  height: 282px;
+  object-fit: contain;
+  grid-area: img;
+  border-radius: 10px 10px 0 0;
+}

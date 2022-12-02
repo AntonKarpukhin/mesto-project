@@ -1,0 +1,9 @@
+.popup__label-text {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.popup__label-text:last-child {
+  margin-top: 30px;
+}
