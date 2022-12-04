@@ -23,7 +23,7 @@
     "name button"
     "text text";
     column-gap: 10px;
-    row-gap: 14px;
+    row-gap: 0;
     justify-content: center;
   }
 }
