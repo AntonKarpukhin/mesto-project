@@ -7,6 +7,7 @@
   border: none;
   background: url("../../../images/close-icon.svg") no-repeat center;
   z-index: 2;
+  cursor: pointer;
 }
 
 

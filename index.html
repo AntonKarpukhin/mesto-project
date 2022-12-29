@@ -17,51 +17,29 @@
         <img class="profile__avatar" src="images/avatar.jpg" alt="аватар">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button opacity" aria-label="редактирование" type="button"></button>
+          <button class="profile__edit-button opacity" aria-label="редактирование" type="button" data-openBtn></button>
           <p class="profile__text">Исследователь океана</p>
         </div>
-        <button class="profile__add-button opacity" aria-label="добавить" type="button"></button>
+        <button class="profile__add-button opacity" aria-label="добавить" type="button" data-openBtn></button>
       </section>
       <section class="elements">
-        <article class="element">
-          <img class="element__img" src="images/karachaevsk.jpg" alt="Карачаевск">
-          <h2 class="element__title">Карачаевск</h2>
-          <button class="element__icon opacity opacity_type_heart-hover" type="button"></button>
-        </article>
-        <article class="element">
-          <img class="element__img" src="images/elbrus.jpg" alt="Гора Эльбрус">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__icon opacity opacity_type_heart-hover" type="button"></button>
-        </article>
-        <article class="element">
-          <img class="element__img" src="images/dombay.jpg" alt="Домбай">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__icon opacity opacity_type_heart-hover" type="button"></button>
-        </article>
-        <article class="element">
-          <img class="element__img" src="images/elbrus.jpg" alt="Гора Эльбрус">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__icon opacity opacity_type_heart-hover" type="button"></button>
-        </article>
-        <article class="element">
-          <img class="element__img" src="images/dombay.jpg" alt="Домбай">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__icon opacity opacity_type_heart-hover" type="button"></button>
-        </article>
-        <article class="element">
-          <img class="element__img" src="images/karachaevsk.jpg" alt="Карачаево-Черкессия">
-          <h2 class="element__title">Карачаево-Черкессия</h2>
-          <button class="element__icon opacity opacity_type_heart-hover" type="button"></button>
-        </article>
+        <template id="element-template">
+          <article class="element">
+            <img src="#" alt="" class="element__img">
+            <h2 class="element__title"></h2>
+            <button class="element__icon opacity opacity_type_heart-hover" type="button"></button>
+            <button class="element__basket opacity" type="button"></button>
+          </article>
+        </template>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022. Anton Karpukhin</p>
     </footer>
-    <div class="popup popup_opened">
+    <div class="popup" data-editing>
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popup-editing">
+        <form class="popup__form popup__form-editing" name="popup-editing">
           <fieldset class="popup__contact-info">
             <label class="popup__label-text" for="name">
               <input class="popup__input-text" id="name" type="text" name="name" placeholder="Напишите своё имя" required>
@@ -72,9 +50,27 @@
           </fieldset>
           <button class="popup__button opacity opacity_type_button-form" type="submit" value="Отправить на сервер">Сохранить</button>
         </form>
-        <button class="popup__close-icon opacity" type="button"></button>
+        <button class="popup__close-icon popup__close-icon_edit opacity" type="button" data-closeBtn></button>
+      </div>
+    </div>
+    <div class="popup" data-add>
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form popup__form-add" name="popup-add">
+          <fieldset class="popup__contact-info">
+            <label class="popup__label-text" for="name">
+              <input class="popup__input-text" id="place" type="text" name="place" placeholder="Название" required>
+            </label>
+            <label class="popup__label-text" for="hobby">
+              <input class="popup__input-text" id="link" type="text" name="link" placeholder="Ссылка на картинку" required>
+            </label>
+          </fieldset>
+          <button class="popup__button opacity opacity_type_button-form" type="submit" value="Отправить на сервер">Создать</button>
+        </form>
+        <button class="popup__close-icon popup__close-icon_add opacity" type="button" data-closeBtn></button>
       </div>
     </div>
   </div>
+  <script src="js/script.js"></script>
 </body>
 </html>

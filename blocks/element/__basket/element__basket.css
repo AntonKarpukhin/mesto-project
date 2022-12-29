@@ -1,0 +1,11 @@
+.element__basket {
+  margin: 0;
+  padding: 0;
+  width: 18px;
+  height: 19px;
+  border: none;
+  background: url("../../../images/basket.svg") no-repeat center;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
