@@ -10,6 +10,7 @@ Landing page о достопримечательностях России.
 4. Flexbox
 5. Grid
 6. Adaptive layout
+7. JavaScript
 
 **Install**
 Скопировать репозиторий -> запустить.
