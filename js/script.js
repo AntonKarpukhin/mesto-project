@@ -34,6 +34,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  //Scroll delete
   function calcScroll() {
     let div = document.createElement('div');
 
@@ -109,7 +110,7 @@ window.addEventListener('DOMContentLoaded', function() {
       evt.target.closest('.element').remove();
     });
 
-    //Big img
+    // Big img
     const imgPopup = document.createElement('div'),
           imgPopupContainer = document.createElement('div'),
           closeBtn = document.createElement('button'),
@@ -117,11 +118,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
     function openBigImg(img) {
       imgPopup.classList.add('popup', 'popup_opened');
-      imgPopupContainer.style.cssText = 'height: 75vh; width: 75vw; position: relative';
+      imgPopupContainer.classList.add('popup__container_big-img')
       closeBtn.classList.add('popup__close-icon', 'opacity');
       sectionElements.append(imgPopup)
       imgPopup.appendChild(imgPopupContainer);
-      // img.appendChild(closeBtn);
       imgPopupContainer.appendChild(img);
       imgPopupContainer.appendChild(closeBtn);
       document.body.style.overflow = 'hidden';
@@ -186,7 +186,6 @@ window.addEventListener('DOMContentLoaded', function() {
     toggleModal(evt.target);
     addFormCard.reset();
   });
-
 
 });
 
