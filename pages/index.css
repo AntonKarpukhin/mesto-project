@@ -30,10 +30,10 @@
 @import url(../blocks/popup/__close-icon/popup__close-icon.css);
 @import url(../blocks/popup/__contact-info/popup__contact-info.css);
 @import url(../blocks/popup/__img/popup__img.css);
+@import url(../blocks/popup/__description/popup__description.css);
 @import url(../blocks/popup/__container/_big-img/popup__container_big-img.css);
 @import url(../blocks/element/__icon/_active/element__icon_active.css);
 @import url(../blocks/opacity/_type/opacity_type_button-form.css);
 @import url(../blocks/opacity/_type/opacity_type_heart-active.css);
 @import url(../blocks/opacity/_type/opacity_type_heart-hover.css);
 @import url(../blocks/opacity/opacity.css);
-@import url(../blocks/helpers/__scroll_delete/helpers__scroll_delete.css);
