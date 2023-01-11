@@ -28,12 +28,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
   buttonsClosePopup.forEach(btn => {
     btn.addEventListener('click', (evt) => {
-      const target = evt.target;
-      if (target && target.classList.contains('popup__close-icon_edit') || target.classList.contains('popup__form-editing')) {
-        closePopup(popupEditProfile);
-      } else if (target && target.classList.contains('popup__close-icon_add') || target.classList.contains('popup__form-add')) {
-        closePopup(popupAddCard);
-      }
+      closePopup(evt.target.closest('.popup'))
     });
   })
 
