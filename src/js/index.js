@@ -1,8 +1,8 @@
 import '../pages/index.css';
-import {openPopup, closePopup, buttonsClosePopup, popupEditProfile, popupAddCard, editModalBtn, addCardModalBtn} from "../components/modal";
+import {openPopup, closePopup, popups, popupEditProfile, popupAddCard, editModalBtn, addCardModalBtn} from "../components/modal";
 import {renderCard} from "../components/card";
 import {fillInFormInputs, handleEditFormSubmit, handleCardFormSubmit, formEditProfile, formAddCard} from "../components/form";
-import {setEventListeners} from "../components/validate";
+import {enableValidation} from "../components/validate";
 
 window.addEventListener('DOMContentLoaded', function() {
 
@@ -16,20 +16,12 @@ window.addEventListener('DOMContentLoaded', function() {
     openPopup(popupAddCard);
   });
 
-  buttonsClosePopup.forEach(popup => {
-    popup.addEventListener('click', (evt) => {
+  popups.forEach(popup => {
+    popup.addEventListener('mousedown', (evt) => {
       if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-icon')) {
         closePopup(popup)
       }
     });
-  })
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      buttonsClosePopup.forEach(popup => {
-        closePopup(popup)
-      })
-    }
   })
 
   // Forms
@@ -47,13 +39,15 @@ window.addEventListener('DOMContentLoaded', function() {
     formAddCard.reset();
   });
 
-  const enableValidation = () => {
-    const formList = Array.from(document.querySelectorAll('.popup__form'));
-    formList.forEach((formElement) => {
-      setEventListeners(formElement);
-    });
-  };
-  enableValidation();
+  enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input-text',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_type_inactive',
+    inactiveButtonOpacity: 'opacity',
+    inputErrorClass: 'popup__input-text_type_error',
+    errorClass: 'popup__input-error_active'
+  });
 
 });
 

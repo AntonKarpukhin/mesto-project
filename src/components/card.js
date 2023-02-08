@@ -1,6 +1,6 @@
 //Template Cards.
-import { closePopup, openPopup } from "./modal";
-import { initialCards } from "../js/constants";
+import { openPopup } from "./modal";
+import { initialCards } from "./constants";
 
 const containerTemplateCard = document.querySelector('#element-template').content,
       sectionElementsCards = document.querySelector('.elements'),
@@ -11,7 +11,7 @@ const containerTemplateCard = document.querySelector('#element-template').conten
 //Create Card
 function createCard (name, link) {
   const cloneCard = containerTemplateCard.querySelector('.element').cloneNode(true),
-    cloneImg = cloneCard.querySelector('.element__img');
+        cloneImg = cloneCard.querySelector('.element__img');
 
   cloneImg.alt = name;
   cloneImg.src = link;
@@ -36,12 +36,6 @@ function createCard (name, link) {
 
   return cloneCard;
 }
-
-popupBigImg.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-icon')) {
-    closePopup(popupBigImg);
-  }
-});
 
 //Render initial Card
 function renderInitialCards() {

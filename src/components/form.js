@@ -1,9 +1,9 @@
-const formEditProfile = document.querySelector('form[name="popup-editing"]'),
-      formAddCard = document.querySelector('form[name="popup-add"]'),
-      inputName = document.querySelector('input[name="name"]'),
-      inputJob = document.querySelector('input[name="hobby"]'),
-      inputPlace = document.querySelector('input[name="place"]'),
-      inputLink = document.querySelector('input[name="link"]'),
+const formEditProfile = document.forms["popup-editing"],
+      formAddCard = document.forms["popup-add"],
+      inputName = formEditProfile.elements.name,
+      inputJob = formEditProfile.elements.hobby,
+      inputPlace = formAddCard.elements.place,
+      inputLink = formAddCard.elements.link,
       profileName = document.querySelector('.profile__name'),
       profileJob = document.querySelector('.profile__text');
 
