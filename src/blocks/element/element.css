@@ -11,6 +11,6 @@
   grid-template-rows: 282px auto;
   grid-template-areas:
   "img img"
-  "title icon";
+  "title container";
   position: relative;
 }

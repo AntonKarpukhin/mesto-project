@@ -4,4 +4,11 @@
   height: 120px;
   border-radius: 100%;
   object-fit: cover;
+  position: relative;
+}
+
+.profile__avatar_type_edit  {
+  opacity: 0.2;
+  transition: opacity 1s;
+  background: url("../../../images/pencil.svg") no-repeat center;
 }

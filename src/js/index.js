@@ -1,8 +1,9 @@
 import '../pages/index.css';
 import {openPopup, closePopup, popups, popupEditProfile, popupAddCard, editModalBtn, addCardModalBtn} from "../components/modal";
-import {renderCard} from "../components/card";
 import {fillInFormInputs, handleEditFormSubmit, handleCardFormSubmit, formEditProfile, formAddCard} from "../components/form";
 import {enableValidation} from "../components/validate";
+import { setUserProfile } from "../components/user";
+import { avatar } from "../components/avatar";
 
 window.addEventListener('DOMContentLoaded', function() {
 
@@ -28,15 +29,11 @@ window.addEventListener('DOMContentLoaded', function() {
   formEditProfile.addEventListener('submit', (evt) => {
     evt.preventDefault();
     handleEditFormSubmit();
-    closePopup(popupEditProfile);
   });
 
   formAddCard.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const { placeInputValue, linkInputValue } = handleCardFormSubmit()
-    renderCard(placeInputValue, linkInputValue);
-    closePopup(popupAddCard);
-    formAddCard.reset();
+    handleCardFormSubmit();
   });
 
   enableValidation({
@@ -51,4 +48,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
 });
 
+setUserProfile();
+
+avatar.addEventListener('click', () => {
+  avatar.classList.add('profile__avatar_type_edit')
+  console.log('yep')
+})
 

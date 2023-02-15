@@ -1,3 +1,7 @@
+import { postCard, postUserInfo } from "./api";
+import { closePopup, popupAddCard, popupEditProfile } from "./modal";
+import { renderCard } from "./card";
+
 const formEditProfile = document.forms["popup-editing"],
       formAddCard = document.forms["popup-add"],
       inputName = formEditProfile.elements.name,
@@ -13,14 +17,30 @@ function fillInFormInputs() {
 }
 
 function handleEditFormSubmit() {
-  profileName.textContent = inputName.value.trim();
-  profileJob.textContent = inputJob.value.trim();
+  postUserInfo(inputName.value.trim(), inputJob.value.trim())
+    .then(res => {
+      profileName.textContent = res.name;
+      profileJob.textContent = res.about;
+    }).catch(err => {
+      profileName.textContent = err;
+      profileJob.textContent = err;
+  }).finally(() => {
+      closePopup(popupEditProfile);
+  })
 }
 
 function handleCardFormSubmit() {
-  const placeInputValue = inputPlace.value.trim();
-  const linkInputValue = inputLink.value.trim();
-  return {placeInputValue, linkInputValue};
+  postCard(inputPlace.value.trim(), inputLink.value.trim())
+    .then(res => {
+      renderCard(res.name, res.link);
+    })
+    .catch(err => {
+      renderCard(err, err);
+    })
+    .finally(() => {
+      closePopup(popupAddCard);
+      formAddCard.reset();
+    })
 }
 
 export {fillInFormInputs, handleEditFormSubmit, handleCardFormSubmit, formEditProfile, formAddCard}

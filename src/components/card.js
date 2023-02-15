@@ -1,6 +1,6 @@
 //Template Cards.
-import { openPopup } from "./modal";
-import { initialCards } from "./constants";
+import { closePopup, openPopup } from "./modal";
+import { addLikeCard, deleteCard, deleteLikeCard, getCards } from "./api";
 
 const containerTemplateCard = document.querySelector('#element-template').content,
       sectionElementsCards = document.querySelector('.elements'),
@@ -9,24 +9,86 @@ const containerTemplateCard = document.querySelector('#element-template').conten
       popupDescription = popupBigImg.querySelector('.popup__description');
 
 //Create Card
-function createCard (name, link) {
+function createCard (name, link, likes, idDeleteButton, cardId, heartLike) {
   const cloneCard = containerTemplateCard.querySelector('.element').cloneNode(true),
-        cloneImg = cloneCard.querySelector('.element__img');
+        cloneImg = cloneCard.querySelector('.element__img'),
+        id = 'cd0ea33eca6f1bac3e2f63a4';
 
   cloneImg.alt = name;
   cloneImg.src = link;
   cloneCard.querySelector('.element__title').textContent = name;
 
   //Like Card
-  cloneCard.querySelector('.element__icon').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('element__icon_active');
-  });
+  function likeCard(evt) {
+    if (!evt.target.classList.contains('element__icon_active')) {
+      addLikeCard(cardId)
+        .then(res => {
+          evt.target.closest('.element').replaceWith(createCard(res.name, res.link, res.likes, res.owner._id, res._id, true))
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else {
+      deleteLikeCard(cardId)
+        .then(res => {
+          evt.target.closest('.element').replaceWith(createCard(res.name, res.link, res.likes, res.owner._id, res._id, false))
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
+
+  cloneCard.querySelector('.element__icon').addEventListener('click', likeCard);
+
+  function checkMyLike(likes) {
+    return likes.some(item => {
+      return item._id === id
+    })
+  }
+
+  if (likes) {
+    cloneCard.querySelector('.element__likes').textContent = likes.length;
+    checkMyLike(likes) ? cloneCard.querySelector('.element__icon').classList.add('element__icon_active') : ''
+  } else {
+    cloneCard.querySelector('.element__likes').textContent = 0;
+  }
+
+  if (heartLike) {
+    cloneCard.querySelector('.element__icon').classList.add('element__icon_active')
+  } else if (!checkMyLike(likes)) {
+    cloneCard.querySelector('.element__icon').classList.remove('element__icon_active')
+  }
 
   //Delete Card
-  cloneCard.querySelector('.element__basket').addEventListener('click', (evt) => {
-    evt.target.closest('.element').remove();
-  });
+  if (idDeleteButton !== id) {
+    cloneCard.querySelector('.element__basket').style.visibility = 'hidden'
+  }
 
+  function removeCard() {
+    const popup = document.querySelector('[data-deleteCard]');
+    openPopup(popup);
+    cloneCard.querySelector('.element__basket').removeEventListener('click', removeCard);
+
+    function handleDeleteCard() {
+      deleteCard(cardId)
+        .then(() => {
+          renderInitialCards()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(() => {
+          closePopup(popup)
+          popup.querySelector('.popup__button').removeEventListener('click', handleDeleteCard)
+        })
+    }
+    popup.querySelector('.popup__button').addEventListener('click', handleDeleteCard)
+  }
+
+  cloneCard.querySelector('.element__basket').addEventListener('click', removeCard);
+
+  //Big Modal
   cloneImg.addEventListener('click', (evt) => {
     bigImg.setAttribute('src', evt.target.src);
     bigImg.setAttribute('alt', evt.target.alt);
@@ -39,7 +101,15 @@ function createCard (name, link) {
 
 //Render initial Card
 function renderInitialCards() {
-  initialCards.forEach(card => sectionElementsCards.prepend(createCard(card.name, card.link)));
+  getCards()
+    .then(cards => {
+      cards.forEach(card => {
+        sectionElementsCards.prepend(createCard(card.name, card.link, card.likes, card.owner._id, card._id))
+      })
+    })
+    .catch(err => {
+      sectionElementsCards.prepend(createCard(err, err))
+    })
 }
 renderInitialCards()
 

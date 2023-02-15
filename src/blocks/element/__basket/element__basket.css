@@ -1,4 +1,5 @@
 .element__basket {
+  visibility: visible;
   margin: 0;
   padding: 0;
   width: 18px;
