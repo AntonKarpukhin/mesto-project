@@ -13,7 +13,10 @@
     </header>
     <main>
       <section class="profile">
-        <img class="profile__avatar" src="#" alt="аватар">
+        <div class="profile__container-avatar">
+          <img class="profile__avatar" src="#" alt="аватар">
+          <button type="button" class="profile__edit-avatar-button"></button>
+        </div>
         <div class="profile__info">
           <h1 class="profile__name"></h1>
           <button class="profile__edit-button opacity" aria-label="редактирование" type="button"></button>
@@ -87,6 +90,21 @@
       <div class="popup__container">
         <h2 class="popup__title">Вы уверены?</h2>
         <button class="popup__button opacity" type="submit" value="Отправить на сервер">Да</button>
+        <button class="popup__close-icon popup__close-icon_add opacity" type="button" data-closeBtn></button>
+      </div>
+    </div>
+    <div class="popup" data-avatar>
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form popup__form-avatar" name="popup-avatar">
+          <fieldset class="popup__contact-info">
+            <label class="popup__label-avatar" for="avatar">
+              <input class="popup__input-text" id="avatar" type="url" name="link" placeholder="Ссылка на аватар" required>
+              <span class="popup__input-error avatar-input-error">avatar-input-error</span>
+            </label>
+          </fieldset>
+          <button class="popup__button opacity" type="submit" value="Отправить на сервер">Сохранить</button>
+        </form>
         <button class="popup__close-icon popup__close-icon_add opacity" type="button" data-closeBtn></button>
       </div>
     </div>

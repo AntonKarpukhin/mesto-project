@@ -25,4 +25,7 @@ function setUserProfile() {
   })
 }
 
-export {setUserProfile}
+export {setUserProfile, renderResult}
+
+
+

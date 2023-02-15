@@ -1,6 +1,7 @@
 import { postCard, postUserInfo } from "./api";
 import { closePopup, popupAddCard, popupEditProfile } from "./modal";
 import { renderCard } from "./card";
+import { changeButtonValue } from "./utils";
 
 const formEditProfile = document.forms["popup-editing"],
       formAddCard = document.forms["popup-add"],
@@ -17,6 +18,8 @@ function fillInFormInputs() {
 }
 
 function handleEditFormSubmit() {
+  const popup = document.querySelector('.popup_opened');
+  changeButtonValue(popup, 'Сохранение...')
   postUserInfo(inputName.value.trim(), inputJob.value.trim())
     .then(res => {
       profileName.textContent = res.name;
@@ -26,13 +29,16 @@ function handleEditFormSubmit() {
       profileJob.textContent = err;
   }).finally(() => {
       closePopup(popupEditProfile);
+      changeButtonValue(popup, 'Сохранить')
   })
 }
 
 function handleCardFormSubmit() {
+  const popup = document.querySelector('.popup_opened');
+  changeButtonValue(popup, 'Сохранение...')
   postCard(inputPlace.value.trim(), inputLink.value.trim())
     .then(res => {
-      renderCard(res.name, res.link);
+      renderCard(res.name, res.link, res.likes, res.owner._id, res._id, false);
     })
     .catch(err => {
       renderCard(err, err);
@@ -40,6 +46,7 @@ function handleCardFormSubmit() {
     .finally(() => {
       closePopup(popupAddCard);
       formAddCard.reset();
+      changeButtonValue(popup, 'Создать')
     })
 }
 

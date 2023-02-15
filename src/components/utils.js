@@ -7,4 +7,9 @@ function closeByEscape(evt) {
   }
 }
 
-export {closeByEscape}
+function changeButtonValue(popup, name) {
+  popup.querySelector('.popup__button').textContent = name
+
+}
+
+export {closeByEscape, changeButtonValue}

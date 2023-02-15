@@ -3,7 +3,14 @@ import {openPopup, closePopup, popups, popupEditProfile, popupAddCard, editModal
 import {fillInFormInputs, handleEditFormSubmit, handleCardFormSubmit, formEditProfile, formAddCard} from "../components/form";
 import {enableValidation} from "../components/validate";
 import { setUserProfile } from "../components/user";
-import { avatar } from "../components/avatar";
+import {
+  avatarContainer,
+  openPopupAvatar,
+  editAvatar,
+  outAvatar,
+  buttonHandleAvatar, handleAvatar
+} from "../components/avatar";
+import { changeButtonValue } from "../components/utils";
 
 window.addEventListener('DOMContentLoaded', function() {
 
@@ -50,8 +57,10 @@ window.addEventListener('DOMContentLoaded', function() {
 
 setUserProfile();
 
-avatar.addEventListener('click', () => {
-  avatar.classList.add('profile__avatar_type_edit')
-  console.log('yep')
-})
+//ChangeAvatar
+avatarContainer.addEventListener('mouseover', editAvatar);
+avatarContainer.addEventListener('mouseout', outAvatar);
+avatarContainer.addEventListener('click', openPopupAvatar);
+buttonHandleAvatar.addEventListener('click', handleAvatar);
+
 

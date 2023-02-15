@@ -142,4 +142,4 @@ function replaceAvatar(avatar) {
 }
 
 
-export {getUserInfo, getCards, postUserInfo, postCard, deleteCard, addLikeCard, deleteLikeCard}
+export {getUserInfo, getCards, postUserInfo, postCard, deleteCard, addLikeCard, deleteLikeCard, replaceAvatar}
