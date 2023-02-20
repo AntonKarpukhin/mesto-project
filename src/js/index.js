@@ -1,18 +1,23 @@
 import '../pages/index.css';
 import {openPopup, closePopup, popups, popupEditProfile, popupAddCard, editModalBtn, addCardModalBtn} from "../components/modal";
-import {fillInFormInputs, handleEditFormSubmit, handleCardFormSubmit, formEditProfile, formAddCard} from "../components/form";
+import {
+  fillInFormInputs, formEditProfile, formAddCard, handleProfileFormSubmit, handleAddCardFormSubmit
+} from "../components/form";
 import {enableValidation} from "../components/validate";
-import { setUserProfile } from "../components/user";
 import {
   avatarContainer,
   openPopupAvatar,
   editAvatar,
   outAvatar,
-  buttonHandleAvatar, handleAvatar
+  handleAvatarSubmit, avatarForm
 } from "../components/avatar";
-import { changeButtonValue } from "../components/utils";
+import { getUserInfoAndCard } from "../components/api";
+import { renderProfileData } from "../components/user";
+import { createCard, sectionElementsCards } from "../components/card";
 
 window.addEventListener('DOMContentLoaded', function() {
+
+  let userId;
 
   // Modals.
   editModalBtn.addEventListener('click', () => {
@@ -34,13 +39,11 @@ window.addEventListener('DOMContentLoaded', function() {
 
   // Forms
   formEditProfile.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    handleEditFormSubmit();
+    handleProfileFormSubmit(evt);
   });
 
   formAddCard.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    handleCardFormSubmit();
+    handleAddCardFormSubmit(evt);
   });
 
   enableValidation({
@@ -53,14 +56,30 @@ window.addEventListener('DOMContentLoaded', function() {
     errorClass: 'popup__input-error_active'
   });
 
-});
-
-setUserProfile();
+  getUserInfoAndCard()
+    .then(([userData, card]) => {
+      userId = userData._id
+      renderProfileData(userData)
+      card.forEach(card => {
+        sectionElementsCards.prepend(createCard(card.name, card.link, card.likes, card.owner._id, card._id, userId))
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
 
 //ChangeAvatar
-avatarContainer.addEventListener('mouseover', editAvatar);
-avatarContainer.addEventListener('mouseout', outAvatar);
-avatarContainer.addEventListener('click', openPopupAvatar);
-buttonHandleAvatar.addEventListener('click', handleAvatar);
+  avatarContainer.addEventListener('mouseover', editAvatar);
+  avatarContainer.addEventListener('mouseout', outAvatar);
+  avatarContainer.addEventListener('click', openPopupAvatar);
+  avatarForm.addEventListener('submit', (evt) => {
+    handleAvatarSubmit(evt)
+  });
+
+});
+
+
+
+
 
 

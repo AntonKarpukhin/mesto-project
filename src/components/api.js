@@ -1,145 +1,53 @@
-const cohort = 'plus-cohort-21';
-const token = '2958a45e-bafc-4a44-b942-30135d02a6f4';
+import { request } from "./utils";
 
 function getUserInfo() {
-  return fetch(`https://nomoreparties.co/v1/${cohort}/users/me`, {
-    headers: {
-      authorization: token
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+  return request(`/users/me`)
 }
 
 function getCards() {
-  return fetch(`https://nomoreparties.co/v1/${cohort}/cards`, {
-    headers: {
-      authorization: token
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+  return request(`/cards`)
+}
+
+function getUserInfoAndCard() {
+  return Promise.all([getUserInfo(), getCards()])
 }
 
 function postUserInfo(name, about) {
-  return fetch(`https://nomoreparties.co/v1/${cohort}/users/me`, {
-    method: 'PATCH',
-    body: JSON.stringify({
+  return request(`/users/me`,
+    'PATCH',
+    JSON.stringify({
     name: name,
     about: about
-    }),
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+  }))
 }
 
 function postCard(name, link) {
-  return fetch(`https://nomoreparties.co/v1/${cohort}/cards`, {
-    method: 'POST',
-    body: JSON.stringify({
-      name: name,
-      link: link
-    }),
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json',
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+  return request(`/cards`,
+    'POST',
+    JSON.stringify({
+    name: name,
+    link: link
+  }))
 }
 
 function deleteCard(id) {
-  return fetch(`https://nomoreparties.co/v1/${cohort}/cards/${id}`, {
-    method: 'DELETE',
-    headers: {
-      authorization: token
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+  return request(`/cards/${id}`, 'DELETE')
 }
 
 function addLikeCard(id) {
-  return fetch(`https://nomoreparties.co/v1/${cohort}/cards/likes/${id}`, {
-    method: 'PUT',
-    headers: {
-      authorization: token
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+  return request(`/cards/likes/${id}`, 'PUT')
 }
 
 function deleteLikeCard(id) {
-  return fetch(`https://nomoreparties.co/v1/${cohort}/cards/likes/${id}`, {
-    method: 'DELETE',
-    headers: {
-      authorization: token
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+  return request(`/cards/likes/${id}`, 'DELETE')
 }
 
 function replaceAvatar(avatar) {
-  return fetch(`https://nomoreparties.co/v1/${cohort}/users/me/avatar`, {
-    method: 'PATCH',
-    body: JSON.stringify({
-      avatar: avatar
-    }),
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json',
-    }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
+  return request(`/users/me/avatar`,
+    'PATCH',
+    JSON.stringify({
+    avatar: avatar
+  }))
 }
 
-
-export {getUserInfo, getCards, postUserInfo, postCard, deleteCard, addLikeCard, deleteLikeCard, replaceAvatar}
+export {getUserInfoAndCard, postUserInfo, postCard, deleteCard, addLikeCard, deleteLikeCard, replaceAvatar}

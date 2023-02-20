@@ -1,18 +1,22 @@
 //Template Cards.
 import { closePopup, openPopup } from "./modal";
-import { addLikeCard, deleteCard, deleteLikeCard, getCards } from "./api";
+import { addLikeCard, deleteCard, deleteLikeCard } from "./api";
 
 const containerTemplateCard = document.querySelector('#element-template').content,
       sectionElementsCards = document.querySelector('.elements'),
       popupBigImg = document.querySelector('[data-bigImg]'),
       bigImg = popupBigImg.querySelector('.popup__img'),
-      popupDescription = popupBigImg.querySelector('.popup__description');
+      popupDescription = popupBigImg.querySelector('.popup__description'),
+      popupDelete = document.querySelector('[data-deleteCard]'),
+      buttonDeleteElement = document.querySelector('[data-deleteElement]');
 
 //Create Card
-function createCard (name, link, likes, idDeleteButton, cardId, heartLike) {
+function createCard (name, link, likes, userId, cardId, myId) {
   const cloneCard = containerTemplateCard.querySelector('.element').cloneNode(true),
         cloneImg = cloneCard.querySelector('.element__img'),
-        id = 'cd0ea33eca6f1bac3e2f63a4';
+        likeButton = cloneCard.querySelector('.element__icon'),
+        likeCounter = cloneCard.querySelector('.element__likes'),
+        basketButton = cloneCard.querySelector('.element__basket');
 
   cloneImg.alt = name;
   cloneImg.src = link;
@@ -23,7 +27,8 @@ function createCard (name, link, likes, idDeleteButton, cardId, heartLike) {
     if (!evt.target.classList.contains('element__icon_active')) {
       addLikeCard(cardId)
         .then(res => {
-          evt.target.closest('.element').replaceWith(createCard(res.name, res.link, res.likes, res.owner._id, res._id, true))
+          likeButton.classList.add('element__icon_active')
+          likeCounter.textContent = res.likes.length
         })
         .catch(err => {
           console.log(err)
@@ -31,7 +36,8 @@ function createCard (name, link, likes, idDeleteButton, cardId, heartLike) {
     } else {
       deleteLikeCard(cardId)
         .then(res => {
-          evt.target.closest('.element').replaceWith(createCard(res.name, res.link, res.likes, res.owner._id, res._id, false))
+          likeButton.classList.remove('element__icon_active')
+          likeCounter.textContent = res.likes.length
         })
         .catch(err => {
           console.log(err)
@@ -39,64 +45,33 @@ function createCard (name, link, likes, idDeleteButton, cardId, heartLike) {
     }
   }
 
-  cloneCard.querySelector('.element__icon').addEventListener('click', likeCard);
+  likeButton.addEventListener('click', likeCard);
 
   function checkMyLike(likes) {
     return likes.some(item => {
-      return item._id === id
+      return item._id === myId
     })
   }
 
   if (likes) {
-    cloneCard.querySelector('.element__likes').textContent = likes.length;
-    checkMyLike(likes) ? cloneCard.querySelector('.element__icon').classList.add('element__icon_active') : ''
+    likeCounter.textContent = likes.length;
+    checkMyLike(likes) ? likeButton.classList.add('element__icon_active') : ''
   } else {
-    cloneCard.querySelector('.element__likes').textContent = 0;
-  }
-
-  if (heartLike) {
-    cloneCard.querySelector('.element__icon').classList.add('element__icon_active')
-  } else if (!checkMyLike(likes)) {
-    cloneCard.querySelector('.element__icon').classList.remove('element__icon_active')
+    likeCounter.textContent = 0;
   }
 
   //Delete Card
-  if (idDeleteButton !== id) {
-    cloneCard.querySelector('.element__basket').style.visibility = 'hidden'
+  if (myId !== userId) {
+    basketButton.style.visibility = 'hidden'
   }
 
-  function removeOldElements() {
-    sectionElementsCards.querySelectorAll('.element').forEach(item => item.remove())
-  }
+  basketButton.addEventListener('click', (evt) => {
+    deleteCard(cardId)
+      .then(() => {
+          evt.target.closest('.element').remove();
+      })
+  })
 
-  function removeCard() {
-    const popup = document.querySelector('[data-deleteCard]');
-    openPopup(popup);
-
-    function handleDeleteCard() {
-      deleteCard(cardId)
-        .then(() => {
-          removeOldElements()
-          renderInitialCards()
-        })
-        .catch(err => {
-          console.log(err)
-        })
-        .finally(() => {
-          closePopup(popup)
-        })
-    }
-
-    popup.querySelector('.popup__button').addEventListener('click', (evt) => {
-      evt.preventDefault();
-      handleDeleteCard()
-    }, {once: true});
-  }
-
-  cloneCard.querySelector('.element__basket').addEventListener('click', (evt) => {
-    evt.preventDefault();
-    removeCard();
-  }, {once: true});
 
   //Big Modal
   cloneImg.addEventListener('click', (evt) => {
@@ -109,23 +84,9 @@ function createCard (name, link, likes, idDeleteButton, cardId, heartLike) {
   return cloneCard;
 }
 
-//Render initial Card
-function renderInitialCards() {
-  getCards()
-    .then(cards => {
-      cards.forEach(card => {
-        sectionElementsCards.prepend(createCard(card.name, card.link, card.likes, card.owner._id, card._id))
-      })
-    })
-    .catch(err => {
-      sectionElementsCards.prepend(createCard(err, err))
-    })
-}
-renderInitialCards()
-
 //Render new Card
 function renderCard(name, link, likes, owner, id, bool) {
   sectionElementsCards.prepend(createCard(name, link, likes, owner, id, bool));
 }
 
-export {renderCard}
+export {renderCard, sectionElementsCards, createCard}

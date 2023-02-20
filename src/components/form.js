@@ -1,7 +1,7 @@
 import { postCard, postUserInfo } from "./api";
 import { closePopup, popupAddCard, popupEditProfile } from "./modal";
 import { renderCard } from "./card";
-import { changeButtonValue } from "./utils";
+import { handleSubmit } from "./utils";
 
 const formEditProfile = document.forms["popup-editing"],
       formAddCard = document.forms["popup-add"],
@@ -17,37 +17,27 @@ function fillInFormInputs() {
   inputJob.value = profileJob.innerText;
 }
 
-function handleEditFormSubmit() {
-  const popup = document.querySelector('.popup_opened');
-  changeButtonValue(popup, 'Сохранение...')
-  postUserInfo(inputName.value.trim(), inputJob.value.trim())
-    .then(res => {
-      profileName.textContent = res.name;
-      profileJob.textContent = res.about;
-    }).catch(err => {
-      profileName.textContent = err;
-      profileJob.textContent = err;
-  }).finally(() => {
-      closePopup(popupEditProfile);
-      changeButtonValue(popup, 'Сохранить')
-  })
+function handleProfileFormSubmit(evt) {
+  function makeRequest() {
+    return postUserInfo(inputName.value.trim(), inputJob.value.trim())
+      .then((userData) => {
+        profileName.textContent = userData.name;
+        profileJob.textContent = userData.about;
+        closePopup(popupEditProfile);
+    });
+  }
+  handleSubmit(makeRequest, evt);
 }
 
-function handleCardFormSubmit() {
-  const popup = document.querySelector('.popup_opened');
-  changeButtonValue(popup, 'Сохранение...')
-  postCard(inputPlace.value.trim(), inputLink.value.trim())
-    .then(res => {
-      renderCard(res.name, res.link, res.likes, res.owner._id, res._id, false);
-    })
-    .catch(err => {
-      renderCard(err, err);
-    })
-    .finally(() => {
-      closePopup(popupAddCard);
-      formAddCard.reset();
-      changeButtonValue(popup, 'Создать')
-    })
+function handleAddCardFormSubmit(evt) {
+  function makeRequest() {
+    return postCard(inputPlace.value.trim(), inputLink.value.trim())
+      .then((userData) => {
+        renderCard(userData.name, userData.link, userData.likes, userData.owner._id, userData._id, userData.owner._id);
+        closePopup(popupAddCard);
+      });
+  }
+  handleSubmit(makeRequest, evt);
 }
 
-export {fillInFormInputs, handleEditFormSubmit, handleCardFormSubmit, formEditProfile, formAddCard}
+export {fillInFormInputs, formEditProfile, formAddCard, handleProfileFormSubmit, handleAddCardFormSubmit}

@@ -1,14 +1,13 @@
 import { closePopup, openPopup } from "./modal";
 import { replaceAvatar } from "./api";
-import { renderResult } from "./user";
-import { changeButtonValue } from "./utils";
+import { renderProfileData } from "./user";
+import { handleSubmit } from "./utils";
 
 const avatarContainer = document.querySelector('.profile__container-avatar'),
       avatarOverflow = document.querySelector('.profile__edit-avatar-button'),
-      popup = document.querySelector('[data-avatar]'),
-      buttonHandleAvatar = popup.querySelector('.popup__button'),
-      input = popup.querySelector('.popup__input-text'),
-      form = popup.querySelector('.popup__form-avatar');
+      avatarPopup = document.querySelector('[data-avatar]'),
+      input = avatarPopup.querySelector('.popup__input-text'),
+      avatarForm = document.forms["popup-avatar"];
 
 
 function editAvatar() {
@@ -22,28 +21,21 @@ function outAvatar() {
 }
 
 function openPopupAvatar() {
-  openPopup(popup)
+  openPopup(avatarPopup)
 }
 
-function handleAvatar() {
-  event.preventDefault()
-  const popup = document.querySelector('.popup_opened');
-  changeButtonValue(popup, 'Сохранение...')
-  replaceAvatar(input.value)
-    .then(res => {
-      renderResult(res)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    .finally(() => {
-      closePopup(popup);
-      form.reset();
-      changeButtonValue(popup, 'Сохранить')
-    })
+function handleAvatarSubmit(evt) {
+  function makeRequest() {
+    return replaceAvatar(input.value)
+      .then((avatarData) => {
+        renderProfileData(avatarData)
+        closePopup(avatarPopup);
+      });
+  }
+  handleSubmit(makeRequest, evt);
 }
 
-export {avatarContainer, buttonHandleAvatar, editAvatar, outAvatar, openPopupAvatar, handleAvatar}
+export {avatarContainer, editAvatar, outAvatar, openPopupAvatar, handleAvatarSubmit, avatarForm}
 
 
 
