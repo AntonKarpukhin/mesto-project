@@ -28,7 +28,7 @@ function request(url, method, endpoint) {
   return fetch(`${config.baseUrl}${url}`, config).then(checkResponse)
 }
 
-function buttonRenderLoading(isLoading, button, buttonText='Сохранить', loadingText='Сохранение...') {
+function changeButtonText(isLoading, button, buttonText='Сохранить', loadingText='Сохранение...') {
   if (isLoading) {
     button.textContent = loadingText
   } else {
@@ -40,7 +40,7 @@ function handleSubmit(request, evt, loadingText = "Сохранение...") {
   evt.preventDefault();
   const submitButton = evt.submitter;
   const initialText = submitButton.textContent;
-  buttonRenderLoading(true, submitButton, initialText, loadingText);
+  changeButtonText(true, submitButton, initialText, loadingText);
   request()
     .then(() => {
       evt.target.reset();
@@ -49,7 +49,7 @@ function handleSubmit(request, evt, loadingText = "Сохранение...") {
       console.error(`Ошибка: ${err}`);
     })
     .finally(() => {
-      buttonRenderLoading(false, submitButton, initialText);
+      changeButtonText(false, submitButton, initialText);
     });
 }
 

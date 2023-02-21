@@ -70,6 +70,9 @@ function createCard (name, link, likes, userId, cardId, myId) {
       .then(() => {
           evt.target.closest('.element').remove();
       })
+      .catch(err => {
+        console.log(err)
+      })
   })
 
 
