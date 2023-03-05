@@ -93,3 +93,5 @@ function renderCard(name, link, likes, owner, id, bool) {
 }
 
 export {renderCard, sectionElementsCards, createCard}
+
+
